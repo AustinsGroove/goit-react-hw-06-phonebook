@@ -1,6 +1,15 @@
+import { useSelector, useDispatch } from 'react-redux';
 import Wrapper from './Filter.styled';
+import { filterChange } from 'store/sliceFilter/sliceFilter';
 
-const Filter = ({ filterChange, value }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+  const { filter } = useSelector(state => state.filter);
+
+  const filterChangeHandler = ev => {
+    dispatch(filterChange(ev.target.value));
+  };
+
   return (
     <Wrapper>
       <label>
@@ -8,8 +17,8 @@ const Filter = ({ filterChange, value }) => {
         <input
           type="text"
           name="filter"
-          value={value}
-          onChange={filterChange}
+          value={filter}
+          onChange={filterChangeHandler}
           pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         ></input>
       </label>
